@@ -42,6 +42,26 @@ pipeline {
 				echo 'Integration Test'
 			}
 		}
+
+		stage('Build Docker Image') {
+			steps {
+				// "docker build -t proasacio/currency-exchange:$env.BUILD_TAG"
+				script {
+					dockerImage = docker.build("docker build -t proasacio/currency-exchange:${env.BUILD_TAG}")
+				}
+			}
+		}
+
+		stage('Push Docker Image') {
+			steps {	
+				script {
+					docker.withRegistry("", 'docker-hub')
+					dockerImage.push()
+					dockerImage.push('latest')
+				}
+			}
+		}
+
 	}
 	post {
 		always {
