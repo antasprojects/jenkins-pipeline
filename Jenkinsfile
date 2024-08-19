@@ -52,7 +52,7 @@ pipeline {
 			steps {
 				// "docker build -t proasacio/currency-exchange:$env.BUILD_TAG"
 				script {
-					dockerImage = docker.build("docker build -t proasacio/currency-exchange:${env.BUILD_TAG}")
+					dockerImage = docker.build("proasacio/currency-exchange:${env.BUILD_TAG}")
 				}
 			}
 		}
