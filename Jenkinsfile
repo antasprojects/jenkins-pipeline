@@ -3,13 +3,13 @@ pipeline {
 		docker {
 			image 'node:21.7'
 		}
+	}
 
 	environment {
         DOCKER_HOST = 'tcp://localhost:2376'
         DOCKER_TLS_VERIFY = '0'
     }
 
-	}
 	stages {
 		stage('Build') {
 			steps {
