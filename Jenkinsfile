@@ -1,20 +1,24 @@
 pipeline {
-	agent {
-		docker {
-			image 'node:21.7'
-		}
-	}
+	agent any
 
 	environment {
-        DOCKER_HOST = 'tcp://localhost:2376'
-        DOCKER_TLS_VERIFY = '0'
+        dockerHome = tool "myDocker"
+	  	mavenHome = tool "myMaven"
+		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
     }
 
 	stages {
 		stage('Build') {
 			steps {
-				sh "node --version"
+				sh "mvn --version"
+				sh "docker --version"
 				echo "Build"
+				echo "Path: $PATH"
+				echo "Build Number: $env.BUILD_NUMBER" 
+				echo "Build ID: $env.BUILD_ID" 
+				echo "Build Tag"
+				echo "Build URL: $env.BUILD_URL" 
+				echo "Job Name: $env.JOB_NAME" 
 			}
 
 			post {
